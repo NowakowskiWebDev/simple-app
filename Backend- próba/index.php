@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-spl_autoload_register(function (string $classNamespace) {
-  $path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
-  $path = "src/$path.php";
-  require_once($path);
-});
+// spl_autoload_register(function (string $classNamespace) {
+//   $path = str_replace(['\\', 'App/'], ['/', ''], $classNamespace);
+//   $path = "src/$path.php";
+//   require_once($path);
+// });
 
-require_once("src/Utils/debug.php");
 $configuration = require_once("config/config.php");
 
 use App\Controller\AbstractController;
-use App\Controller\NoteController;
+use App\Controller\UserController;
 use App\Request;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
@@ -21,8 +20,9 @@ $request = new Request($_GET, $_POST, $_SERVER);
 
 try {
 
-  AbstractController::initConfiguration($configuration);
-  (new NoteController($request))->run();
+  var_dump('dupa');
+  // AbstractController::initConfiguration($configuration);
+  // (new UserController($request))->run();
 } catch (ConfigurationException $e) {
   //mail('xxx@xxx.com', 'Errro', $e->getMessage());
   echo '<h1>Wystąpił błąd w aplikacji</h1>';

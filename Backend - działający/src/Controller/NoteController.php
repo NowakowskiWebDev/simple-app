@@ -30,7 +30,7 @@ class NoteController extends AbstractController
     );
   }
 
-  public function listAction(): void
+  public function listAction()
   {
     $phrase = $this->request->getParam('phrase');
     $pageNumber = (int) $this->request->getParam('page', 1);
@@ -50,6 +50,15 @@ class NoteController extends AbstractController
       $notes = $this->noteModel->count();
     }
 
+    $data = [
+      "data" => $noteList,
+      "status" => 'HTTP/1.1 200 OK',
+      "message" => "Wszystko jest ok"
+    ];
+    
+    echo json_encode($data);
+    exit;
+    
     $this->view->render(
       'list',
       [
