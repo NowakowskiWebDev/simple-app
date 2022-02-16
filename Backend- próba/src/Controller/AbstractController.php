@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Request;
-use App\View;
 use App\Exception\ConfigurationException;
 use App\Exception\NotFoundException;
 use App\Exception\StorageException;
-use App\Model\NoteModel;
+use App\Model\ProductModel;
 
 abstract class AbstractController
 {
-  private static array $configuration = [];
+  protected const DEFAULT_ACTION = 'getAll';
 
+  protected Request $request;
+
+  private static array $configuration = [];
 
   public static function initConfiguration(array $configuration): void
   {
@@ -26,7 +28,7 @@ abstract class AbstractController
     if (empty(self::$configuration['db'])) {
       throw new ConfigurationException('Configuration error');
     }
-    $this->noteModel = new NoteModel(self::$configuration['db']);
+    $this->productModel = new ProductModel(self::$configuration['db']);
 
     $this->request = $request;
   }
@@ -35,14 +37,17 @@ abstract class AbstractController
   {
     try {
       // $action = $this->action() . 'Action';
-      var_dump('dupa');
-      exit;
-      $this->$action();
+      // if (!method_exists($this, $action)) {
+      //   $action = self::DEFAULT_ACTION . 'Action';
+      // }
+      $this->getAll();
     } catch (StorageException $e) {
       // Log::error($e->getPrevios());
-      $this->view->render('error', ['message' => $e->getMessage()]);
+      echo '<h1>Wystąpił błąd w aplikacji</h1>';
+      echo '<h3>' . $e->getMessage() . '</h3>';
     } catch (NotFoundException $e) {
-      $this->redirect('/', ['error' => 'noteNotFound']);
+      echo '<h1>Wystąpił błąd w aplikacji</h1>';
+      echo '<h3>' . $e->getMessage() . '</h3>';
     }
   }
 

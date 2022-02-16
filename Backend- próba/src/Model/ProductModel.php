@@ -9,7 +9,7 @@ use App\Exception\NotFoundException;
 use PDO;
 use Throwable;
 
-class ProductModel extends AbstractModel implements ModelInterface
+class ProductModel extends AbstractModel
 {
   public function list(): array {
     try {

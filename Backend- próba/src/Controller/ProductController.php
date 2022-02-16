@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-class NoteController extends AbstractController
+class ProductController extends AbstractController
 {
   private const PAGE_SIZE = 10;
 
