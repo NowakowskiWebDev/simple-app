@@ -9,67 +9,46 @@ use App\Exception\ConfigurationException;
 use App\Exception\NotFoundException;
 use App\Exception\StorageException;
 use App\Model\ProductModel;
+use App\Model\UserModel;
 
 abstract class AbstractController
 {
-  protected const DEFAULT_ACTION = 'getAll';
+  private static array $configuration = [];
+
+  protected ProductModel $productModel;
+  protected UserModel $userModel;
 
   protected Request $request;
-
-  private static array $configuration = [];
+  protected array $url;
 
   public static function initConfiguration(array $configuration): void
   {
     self::$configuration = $configuration;
   }
 
-  public function __construct(Request $request)
+  public function __construct(array $url, Request $request)
   {
     if (empty(self::$configuration['db'])) {
       throw new ConfigurationException('Configuration error');
     }
-    $this->productModel = new ProductModel(self::$configuration['db']);
 
+    $this->url = $url;
     $this->request = $request;
   }
 
-  final public function run(): void
+  final public function run(Request $request): void
   {
     try {
-      // $action = $this->action() . 'Action';
-      // if (!method_exists($this, $action)) {
-      //   $action = self::DEFAULT_ACTION . 'Action';
-      // }
-      $this->getAll();
+
+      
+
     } catch (StorageException $e) {
-      // Log::error($e->getPrevios());
-      echo '<h1>Wystąpił błąd w aplikacji</h1>';
-      echo '<h3>' . $e->getMessage() . '</h3>';
     } catch (NotFoundException $e) {
-      echo '<h1>Wystąpił błąd w aplikacji</h1>';
-      echo '<h3>' . $e->getMessage() . '</h3>';
     }
   }
 
-  final protected function redirect(string $to, array $params): void
+  final private function getId(): int
   {
-    $location = $to;
-
-    if (count($params)) {
-      $queryParams = [];
-      foreach ($params as $key => $value) {
-        $queryParams[] = urlencode($key) . '=' . urlencode($value);
-      }
-      $queryParams = implode('&', $queryParams);
-      $location .= '?' . $queryParams;
-    }
-
-    header("Location: $location");
-    exit;
-  }
-
-  final private function action(): string
-  {
-    return $this->request->getParam('action', self::DEFAULT_ACTION);
+    return (int) $this->request->getParam('id');
   }
 }

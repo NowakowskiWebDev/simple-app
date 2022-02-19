@@ -11,64 +11,21 @@ use Throwable;
 
 class ProductModel extends AbstractModel
 {
-  public function list(): array {
+  public function all(): array {
     try {
-      $query = "
-        SELECT id, title, created 
-        FROM notes
-        $wherePart
-        ORDER BY $sortBy $sortOrder
-        LIMIT $offset, $limit
-      ";
+      $query = "SELECT * FROM products";
 
-      $result = $this->conn->query($query);
-      return $result->fetchAll(PDO::FETCH_ASSOC);
+      $products = $this->conn->query($query);   
+      
+      return [
+        "code" => 200,
+        "success" => true,
+        "message" => "Products Index",
+        "data" => $products->fetchAll(PDO::FETCH_ASSOC)
+      ];
+
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać notatek', 400, $e);
-    }
-  }
-
-
-  public function search(
-    string $phrase,
-    int $pageNumber,
-    int $pageSize,
-    string $sortBy,
-    string $sortOrder
-  ): array {
-    return $this->findBy($phrase, $pageNumber, $pageSize, $sortBy, $sortOrder);
-  }
-
-  public function count(): int
-  {
-    try {
-      $query = "SELECT count(*) AS cn FROM notes";
-      $result = $this->conn->query($query);
-      $result = $result->fetch(PDO::FETCH_ASSOC);
-      if ($result === false) {
-        throw new StorageException('Błąd przy próbie pobrania ilości notatek', 400);
-      }
-
-      return (int) $result['cn'];
-    } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać informacji o liczbie notatek', 400, $e);
-    }
-  }
-
-  public function searchCount(string $phrase): int
-  {
-    try {
-      $phrase = $this->conn->quote('%' . $phrase . '%', PDO::PARAM_STR);
-      $query = "SELECT count(*) AS cn FROM notes WHERE title LIKE($phrase)";
-      $result = $this->conn->query($query);
-      $result = $result->fetch(PDO::FETCH_ASSOC);
-      if ($result === false) {
-        throw new StorageException('Błąd przy próbie pobrania ilości notatek', 400);
-      }
-
-      return (int) $result['cn'];
-    } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać informacji o liczbie notatek', 400, $e);
+      throw new StorageException('Nie udało się pobrać produktów', 400, $e);
     }
   }
 
@@ -76,8 +33,15 @@ class ProductModel extends AbstractModel
   {
     try {
       $query = "SELECT * FROM notes WHERE id = $id";
-      $result = $this->conn->query($query);
-      $note = $result->fetch(PDO::FETCH_ASSOC);
+
+      $product = $this->conn->query($query);
+      
+      return [
+        "code" => 200,
+        "success" => true,
+        "message" => "Product Get",
+        "data" => $product->fetch(PDO::FETCH_ASSOC)
+      ];
     } catch (Throwable $e) {
       throw new StorageException('Nie udało się pobrać notatki', 400, $e);
     }
@@ -89,89 +53,68 @@ class ProductModel extends AbstractModel
     return $note;
   }
 
-  public function create(array $data): void
+  public function create(array $data): array
   {
     try {
-      $title = $this->conn->quote($data['title']);
-      $description = $this->conn->quote($data['description']);
+      $name = $this->conn->quote($data['name']);
+      $type = $this->conn->quote($data['type']);
+      $img = $this->conn->quote($data['img']);
+      $price = $this->conn->quote($data['price']);
+      $city = $this->conn->quote($data['city']);
       $created = $this->conn->quote(date('Y-m-d H:i:s'));
 
-      $query = "
-        INSERT INTO notes(title, description, created)
-        VALUES($title, $description, $created)
-      ";
+      $query = "INSERT INTO notes(name, type, img, price, city, created) VALUES($name, $type, $img, $price, $city, $created)";
 
       $this->conn->exec($query);
+
+      return [
+        "code" => 200,
+        "success" => true,
+        "message" => "Product Create",
+      ];
+
     } catch (Throwable $e) {
       throw new StorageException('Nie udało się utworzyć nowej notatki', 400, $e);
     }
   }
 
-  public function edit(int $id, array $data): void
+  public function edit(int $id, array $data): array
   {
     try {
-      $title = $this->conn->quote($data['title']);
-      $description = $this->conn->quote($data['description']);
+      $name = $this->conn->quote($data['name']);
+      $type = $this->conn->quote($data['type']);
+      $img = $this->conn->quote($data['img']);
+      $price = $this->conn->quote($data['price']);
+      $city = $this->conn->quote($data['city']);
 
-      $query = "
-        UPDATE notes
-        SET title = $title, description = $description
-        WHERE id = $id
-      ";
+      $query = "UPDATE products SET name = $name, type = $type, img = $img, price = $price, city = $city WHERE id = $id";
 
       $this->conn->exec($query);
+
+      return [
+        "code" => 200,
+        "success" => true,
+        "message" => "Product Edit",
+      ];
     } catch (Throwable $e) {
       throw new StorageException('Nie udało się zaktualizować notetki', 400, $e);
     }
   }
 
-  public function delete(int $id): void
+  public function delete(int $id): array
   {
     try {
       $query = "DELETE FROM notes WHERE id = $id LIMIT 1";
       $this->conn->exec($query);
+
+      return [
+        "code" => 200,
+        "success" => true,
+        "message" => "Product Delete",
+      ];
+
     } catch (Throwable $e) {
       throw new StorageException('Nie udało się usunąć notatki', 400, $e);
-    }
-  }
-
-  private function findBy(
-    ?string $phrase,
-    int $pageNumber,
-    int $pageSize,
-    string $sortBy,
-    string $sortOrder
-  ): array {
-    try {
-      $limit = $pageSize;
-      $offset = ($pageNumber - 1) * $pageSize;
-
-      if (!in_array($sortBy, ['created', 'title'])) {
-        $sortBy = 'title';
-      }
-
-      if (!in_array($sortOrder, ['asc', 'desc'])) {
-        $sortOrder = 'desc';
-      }
-
-      $wherePart = '';
-      if ($phrase) {
-        $phrase = $this->conn->quote('%' . $phrase . '%', PDO::PARAM_STR);
-        $wherePart = "WHERE title LIKE ($phrase)";
-      }
-
-      $query = "
-        SELECT id, title, created 
-        FROM notes
-        $wherePart
-        ORDER BY $sortBy $sortOrder
-        LIMIT $offset, $limit
-      ";
-
-      $result = $this->conn->query($query);
-      return $result->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać notatek', 400, $e);
     }
   }
 }

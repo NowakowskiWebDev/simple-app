@@ -6,116 +6,103 @@ namespace App\Controller;
 
 class ProductController extends AbstractController
 {
-  private const PAGE_SIZE = 10;
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $response = $this->productModel->all();
 
-  public function createAction(): void
-  {
-    if ($this->request->hasPost()) {
-      $noteData = [
-        'title' => $this->request->postParam('title'),
-        'description' => $this->request->postParam('description')
-      ];
-      $this->noteModel->create($noteData);
-      $this->redirect('/', ['before' => 'created']);
+        return $response;   
     }
 
-    $this->view->render('create');
-  }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store()
+    {
+        if (!$this->request->hasPost()) {
+            return [
+                "success" => false,
+                "message" => "Podaj wszystkie dane",
+            ];
+        }
 
-  public function showAction(): void
-  {
-    $this->view->render(
-      'show',
-      ['note' => $this->getNote()]
-    );
-  }
+        $productData = [
+            'name' => $this->request->postParam('name'),
+            'type' => $this->request->postParam('type'),
+            'img' => $this->request->postParam('img'),
+            'price' => $this->request->postParam('price'),
+            'city' => $this->request->postParam('city')
+          ];
 
-  public function listAction()
-  {
-    $phrase = $this->request->getParam('phrase');
-    $pageNumber = (int) $this->request->getParam('page', 1);
-    $pageSize = (int) $this->request->getParam('pagesize', self::PAGE_SIZE);
-    $sortBy = $this->request->getParam('sortby', 'title');
-    $sortOrder = $this->request->getParam('sortorder', 'desc');
-
-    if (!in_array($pageSize, [1, 5, 10, 25])) {
-      $pageSize = self::PAGE_SIZE;
+        $response = $this->productModel->create($productData);
+        
+        return $response;
     }
 
-    if ($phrase) {
-      $noteList = $this->noteModel->search($phrase, $pageNumber, $pageSize, $sortBy, $sortOrder);
-      $notes = $this->noteModel->searchCount($phrase);
-    } else {
-      $noteList = $this->noteModel->list($pageNumber, $pageSize, $sortBy, $sortOrder);
-      $notes = $this->noteModel->count();
+    /**
+     * Display the specified resource.
+     */
+    public function show()
+    {
+        $id = $this->getId();
+
+        if (!$id) {
+            return [
+                "success" => false,
+                "message" => "Wystąpił błąd",
+            ];
+        }
+
+        $response = $this->productModel->get($id);
+
+        return $response;
     }
 
-    $data = [
-      "data" => $noteList,
-      "status" => 'HTTP/1.1 200 OK',
-      "message" => "Wszystko jest ok"
-    ];
-    
-    echo json_encode($data);
-    exit;
-    
-    $this->view->render(
-      'list',
-      [
-        'page' => [
-          'number' => $pageNumber,
-          'size' => $pageSize,
-          'pages' => (int) ceil($notes / $pageSize)
-        ],
-        'phrase' => $phrase,
-        'sort' => ['by' => $sortBy, 'order' => $sortOrder],
-        'notes' => $noteList,
-        'before' => $this->request->getParam('before'),
-        'error' => $this->request->getParam('error')
-      ]
-    );
-  }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update()
+    {
+        $id = $this->getId();
 
-  public function editAction(): void
-  {
+        if (!$this->request->isPost() && !$id) {
+            return [
+                "success" => false,
+                "message" => "Wystąpił błąd",
+            ];
+        }
 
-    if ($this->request->isPost()) {
-      $noteId = (int) $this->request->postParam('id');
-      $noteData = [
-        'title' => $this->request->postParam('title'),
-        'description' => $this->request->postParam('description')
-      ];
-      $this->noteModel->edit($noteId, $noteData);
-      $this->redirect('/', ['before' => 'edited']);
+        $productData = [
+            'name' => $this->request->postParam('name'),
+            'type' => $this->request->postParam('type'),
+            'img' => $this->request->postParam('img'),
+            'price' => $this->request->postParam('price'),
+            'city' => $this->request->postParam('city')
+          ];
+
+        $response = $this->productModel->edit($id, $productData);
+
+        return $response;
     }
 
-    $this->view->render(
-      'edit',
-      ['note' => $this->getNote()]
-    );
-  }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $id = $this->getId();
 
-  public function deleteAction(): void
-  {
-    if ($this->request->isPost()) {
-      $id = (int) $this->request->postParam('id');
-      $this->noteModel->delete($id);
-      $this->redirect('/', ['before' => 'deleted']);
+        if (!$id) {
+            return [
+                "success" => false,
+                "message" => "Wystąpił błąd",
+            ];
+        }
+
+        $response = $this->productModel->delete($id);
+
+        return $response;
     }
-
-    $this->view->render(
-      'delete',
-      ['note' => $this->getNote()]
-    );
-  }
-
-  final private function getNote(): array
-  {
-    $noteId = (int) $this->request->getParam('id');
-    if (!$noteId) {
-      $this->redirect('/', ['error' => 'missingNoteId']);
-    }
-
-    return $this->noteModel->get($noteId);
-  }
 }

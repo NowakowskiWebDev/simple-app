@@ -6,28 +6,9 @@ namespace App\Interface;
 
 interface ProductInterface
 {
-  public function list(
-    int $pageNumber,
-    int $pageSize,
-    string $sortBy,
-    string $sortOrder
-  ): array;
-
-  public function search(
-    string $phrase,
-    int $pageNumber,
-    int $pageSize,
-    string $sortBy,
-    string $sortOrder
-  ): array;
-
-  public function count(): int;
-
-  public function searchCount(string $phrase): int;
-
-  public function get(int $id): array;
-
   public function create(array $data): void;
+  
+  public function get(int $id): array;
 
   public function edit(int $id, array $data): void;
 

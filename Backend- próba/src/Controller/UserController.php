@@ -4,66 +4,103 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-require_once("config/config.php");
-
-use App\Model\UserModel as User;
-
 class UserController extends AbstractController
 {
-    private $user;
-    private $requestMethod;
-    private $userId;
-
-    public function __construct($requestMethod, $userId = null)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $this->requestMethod = $requestMethod;
-        $this->userId = $userId;
+        $response = $this->userModel->all();
+
+        return $response;   
     }
 
-    public function getAll() {
-        $this->user = new User([
-            'host' => 'localhost',
-            'database' => 'first_project',
-            'user' => 'dev',
-            'password' => 'dev'
-          ]);
-        $result = $this->user->getAllAction();
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = $result;
-        echo json_encode($response);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store()
+    {
+        if (!$this->request->hasPost()) {
+            return [
+                "success" => false,
+                "message" => "Podaj wszystkie dane",
+            ];
+        }
+
+        $userData = [
+            'name' => $this->request->postParam('name'),
+            'phone' => $this->request->postParam('phone'),
+            'email' => $this->request->postParam('email'),
+            'password' => $this->request->postParam('password')
+          ];
+
+        $response = $this->userModel->create($userData);
+        
+        return $response;
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show()
+    {
+        $id = $this->getId();
 
-    // public function processRequest()
-    // {
-    //     $this->user = new User();
-    //     switch ($this->requestMethod) {
-    //         case 'GET':
-    //             if ($this->userId) {
-    //                 $response = $this->getUser($this->userId);
-    //             } else {
-    //                 $result = $this->user->getAllAction();
-    //                 $response['status_code_header'] = 'HTTP/1.1 200 OK';
-    //                 $response['body'] = json_encode($result);
-    //                 echo $response;
-    //             };
-    //             break;
-    //         case 'POST':
-    //             $response = $this->createUserFromRequest();
-    //             break;
-    //         case 'PUT':
-    //             $response = $this->updateUserFromRequest($this->userId);
-    //             break;
-    //         case 'DELETE':
-    //             $response = $this->deleteUser($this->userId);
-    //             break;
-    //         default:
-    //             $response = $this->notFoundResponse();
-    //             break;
-    //     }
-    //     header($response['status_code_header']);
-    //     if ($response['body']) {
-    //         echo $response['body'];
-    //     }
-    // }
+        if (!$id) {
+            return [
+                "success" => false,
+                "message" => "Wystąpił błąd",
+            ];
+        }
+
+        $response = $this->userModel->get($id);
+
+        return $response;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update()
+    {
+        $id = $this->getId();
+
+        if (!$this->request->isPost() && !$id) {
+            return [
+                "success" => false,
+                "message" => "Wystąpił błąd",
+            ];
+        }
+
+        $userData = [
+            'name' => $this->request->postParam('name'),
+            'phone' => $this->request->postParam('phone'),
+            'email' => $this->request->postParam('email'),
+            'password' => $this->request->postParam('password')
+        ];
+
+        $response = $this->userModel->edit($id, $userData);
+
+        return $response;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $id = $this->getId();
+
+        if (!$id) {
+            return [
+                "success" => false,
+                "message" => "Wystąpił błąd",
+            ];
+        }
+
+        $response = $this->userModel->delete($id);
+
+        return $response;
+    }
 }
