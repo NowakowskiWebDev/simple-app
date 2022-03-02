@@ -4,27 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.min.css">
-    <script>
-        function myFunction() {
-
-            const getProduct = () => {
-                return products = document.querySelectorAll('#task-name');
-            }
-            const input = document.getElementById('search__input');
-            const p = getProduct();
-            const filter = input.value.toUpperCase();
-            const ul = document.getElementById('task__lists');
-            const li = ul.getElementsByTagName('li');
-            for (i = 0; i < p.length; i++) {
-                if (p[i].textContent.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
-    </script>
     <title>To Do App</title>
 </head>
 
@@ -34,9 +13,14 @@
 
         </header>
         <main class="main">
-            <button type="button" class="btn btn-primary">
-                Notifications <span class="badge bg-secondary">44</span>
-              </button>
+            <form class="search">
+                <button class="btn search__btn">
+                  <svg class="search__icon">
+                    <use href="src/img/icons.svg#icon-search"></use>
+                  </svg>
+                  <span>Search</span>
+                </button>
+              </form>
         </main>
         <footer class="footer">
         </footer>

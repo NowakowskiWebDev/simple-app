@@ -28,16 +28,9 @@ $request = new Request($_GET, $_POST, $_SERVER);
 try {
   // AbstractController::initConfiguration($configuration);
   
-  $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-  
-  $url = explode('/', $url);
+  $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+  $uri = explode( '/', $uri );
 
-  $entityBody = file_get_contents('php://input');
-
-  echo json_encode([
-    'data' => "$entityBody"
-  ]);
-  exit;
   AbstractController($url, $request)->run();
 } catch (ConfigurationException $e) {
   //mail('xxx@xxx.com', 'Errro', $e->getMessage());

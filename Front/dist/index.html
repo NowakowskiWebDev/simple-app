@@ -1,18 +1,27 @@
-<!doctype html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="css/style.min.css"><script>function myFunction() {
+<!DOCTYPE html>
+<html lang="pl">
 
-            const getProduct = () => {
-                return products = document.querySelectorAll('#task-name');
-            }
-            const input = document.getElementById('search__input');
-            const p = getProduct();
-            const filter = input.value.toUpperCase();
-            const ul = document.getElementById('task__lists');
-            const li = ul.getElementsByTagName('li');
-            for (i = 0; i < p.length; i++) {
-                if (p[i].textContent.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }</script><title>To Do App</title></head><body><div class="container"><header class="header"></header><main class="main"><div class="alert alert-primary" role="alert">This is a primary alert—check it out!</div><div class="alert alert-primary" role="alert">This is a primary alert—check it out!</div><div class="alert alert-primary" role="alert">This is a primary alert—check it out!</div><div class="alert alert-primary" role="alert">This is a primary alert—check it out!</div></main><footer class="footer"></footer></div><script src="js/bundle.js"></script></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+<link href="index.css" rel="stylesheet"></head>
+
+<body>
+    <div class="container">
+        <header class="header">
+
+        </header>
+        <main class="main">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary">Left</button>
+                <button type="button" class="btn btn-primary">Middle</button>
+                <button type="button" class="btn btn-primary">Right</button>
+              </div>
+        </main>
+        <footer class="footer">
+        </footer>
+    </div>
+<script src="js/index.js"></script></body>
+
+</html>
