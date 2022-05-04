@@ -44,6 +44,7 @@ abstract class AbstractModel
       || empty($config['user'])
       || empty($config['password'])
     ) {
+      var_dump($config);
       throw new ConfigurationException('Storage configuration error');
     }
   }

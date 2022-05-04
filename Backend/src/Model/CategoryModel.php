@@ -9,48 +9,48 @@ use App\Exception\NotFoundException;
 use PDO;
 use Throwable;
 
-class ProductModel extends AbstractModel
+class CategoryModel extends AbstractModel
 {
   public function all(): array {
     try {
-      $query = "SELECT * FROM products";
+      $query = "SELECT * FROM categories";
 
-      $products = $this->conn->query($query);   
+      $categories = $this->conn->query($query);   
       
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Products All",
-        "data" => $products->fetchAll(PDO::FETCH_ASSOC)
+        "message" => "Category Index",
+        "data" => $categories->fetchAll(PDO::FETCH_ASSOC)
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać produktów', 400, $e);
+      throw new StorageException('Nie udało się pobrać kategorii', 400, $e);
     }
   }
 
   public function get(int $id): array
   {
     try {
-      $query = "SELECT * FROM products WHERE id = $id";
+      $query = "SELECT * FROM categories WHERE id = $id";
 
-      $product = $this->conn->query($query);
+      $category = $this->conn->query($query);
       
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Get",
-        "data" => $product->fetch(PDO::FETCH_ASSOC)
+        "message" => "Category Get",
+        "data" => $category->fetch(PDO::FETCH_ASSOC)
       ];
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać produktu', 400, $e);
+      throw new StorageException('Nie udało się pobrać kategorii', 400, $e);
     }
 
-    if (!$note) {
-      throw new NotFoundException("Produkt o id: $id nie istnieje");
+    if (!$category) {
+      throw new NotFoundException("Kategoria o id: $id nie istnieje");
     }
 
-    return $note;
+    return $category;
   }
 
   public function create(array $data): array
@@ -63,19 +63,19 @@ class ProductModel extends AbstractModel
       // $city = $this->conn->quote($data['city']);
       $created = $this->conn->quote(date('Y-m-d H:i:s'));
 
-      // $query = "INSERT INTO products(name, type, img, price, city, created) VALUES($name, $type, $img, $price, $city, $created)";
-      $query = "INSERT INTO products(name) VALUES($name)";
+      // $query = "INSERT INTO categories(name, type, img, price, city, created) VALUES($name, $type, $img, $price, $city, $created)";
+      $query = "INSERT INTO categories(name, created) VALUES($name, $created)";
 
       $this->conn->exec($query);
 
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Create",
+        "message" => "Category Create",
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się utworzyć nowej produktu', 400, $e);
+      throw new StorageException('Nie udało się utworzyć nowej kategorii', 400, $e);
     }
   }
 
@@ -88,35 +88,35 @@ class ProductModel extends AbstractModel
       // $price = $this->conn->quote($data['price']);
       // $city = $this->conn->quote($data['city']);
 
-      // $query = "UPDATE products SET name = $name, type = $type, img = $img, price = $price, city = $city WHERE id = $id";
-      $query = "UPDATE products SET name = $name WHERE id = $id";
+      // $query = "UPDATE categories SET name = $name, type = $type, img = $img, price = $price, city = $city WHERE id = $id";
+      $query = "UPDATE categories SET name = $name WHERE id = $id";
 
       $this->conn->exec($query);
 
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Edit",
+        "message" => "Category Edit",
       ];
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się zaktualizować produktu', 400, $e);
+      throw new StorageException('Nie udało się zaktualizować notetki', 400, $e);
     }
   }
 
   public function delete(int $id): array
   {
     try {
-      $query = "DELETE FROM products WHERE id = $id LIMIT 1";
+      $query = "DELETE FROM categories WHERE id = $id LIMIT 1";
       $this->conn->exec($query);
 
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Delete",
+        "message" => "Category Delete",
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się usunąć produktu', 400, $e);
+      throw new StorageException('Nie udało się usunąć kategorii', 400, $e);
     }
   }
 }

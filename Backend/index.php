@@ -18,19 +18,24 @@ header( 'Access-Control-Allow-Headers: *' );
 $configuration = require_once("config/config.php");
 
 use App\Controller\AbstractController;
-use App\Controller\UserController;
 use App\Request;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
+use App\Controller\CategoryController;
 
 $request = new Request($_GET, $_POST, $_SERVER);
 
 try {
-  // AbstractController::initConfiguration($configuration);
+  AbstractController::initConfiguration($configuration);
   
-  $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-  $uri = explode( '/', $uri );
-
+  $data = (new CategoryController($request))->run();
+  // return json_decode($data);
+  // echo json_encode($data);
+  $test = json_encode($data);
+  echo $test;
+  // $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+  // $url = explode( '/', $url );
+exit();
   AbstractController($url, $request)->run();
 } catch (ConfigurationException $e) {
   //mail('xxx@xxx.com', 'Errro', $e->getMessage());

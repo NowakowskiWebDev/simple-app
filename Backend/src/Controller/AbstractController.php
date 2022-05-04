@@ -10,6 +10,8 @@ use App\Exception\NotFoundException;
 use App\Exception\StorageException;
 use App\Model\ProductModel;
 use App\Model\UserModel;
+use App\Model\OfferModel;
+use App\Model\CategoryModel;
 
 abstract class AbstractController
 {
@@ -17,6 +19,8 @@ abstract class AbstractController
 
   protected ProductModel $productModel;
   protected UserModel $userModel;
+  protected OfferModel $offerModel;
+  protected CategoryModel $categoryModel;
 
   protected Request $request;
   protected array $url;
@@ -26,29 +30,29 @@ abstract class AbstractController
     self::$configuration = $configuration;
   }
 
-  public function __construct(array $url, Request $request)
+  public function __construct(Request $request)
   {
     if (empty(self::$configuration['db'])) {
       throw new ConfigurationException('Configuration error');
     }
+    $this->productModel = new ProductModel(self::$configuration['db']);
+    $this->userModel = new UserModel(self::$configuration['db']);
+    $this->offerModel = new OfferModel(self::$configuration['db']);
+    $this->categoryModel = new CategoryModel(self::$configuration['db']);
 
-    $this->url = $url;
+    // $this->url = $url;
     $this->request = $request;
   }
 
-  final public function run(Request $request): void
+  final public function run()
   {
     try {
 
-      
+      $test = $this->index();
 
+      return $test;
     } catch (StorageException $e) {
     } catch (NotFoundException $e) {
     }
-  }
-
-  final private function getId(): int
-  {
-    return (int) $this->request->getParam('id');
   }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-class UserController extends AbstractController
+class OfferController extends AbstractController
 {
     /**
      * Display a listing of the resource.

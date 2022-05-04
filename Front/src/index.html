@@ -8,23 +8,25 @@
 </head>
 
 <body>
-    <div class="container">
-        <header class="header">
+    <header class="header">
+        <nav>
+            <a href="/" data-link>Logo</a>
+            <a href="/kategorie" data-link>Kategorie</a>
+            <a href="/konto" data-link>Moje konto</a>
+        </nav>
+    </header>
 
-        </header>
-        <main class="main">
-            <form class="search">
-                <button class="btn search__btn">
-                  <svg class="search__icon">
-                    <use href="src/img/icons.svg#icon-search"></use>
-                  </svg>
-                  <span>Search</span>
-                </button>
-              </form>
-        </main>
-        <footer class="footer">
-        </footer>
-    </div>
+    <main id="app">
+
+        <ul class="results">
+          </ul>
+
+        <div class="pagination"></div>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; Łukasz Nowakowski </p>
+    </footer>
 </body>
 
 </html>

@@ -1,22 +1,6 @@
-import ProductModel from '../models/ProductModel';
+import UserModel from '../models/UserModel';
 
-class ProductController {
-
-  /**
-    * Display a listing of the resource.
-    */
-  index = async function () {
-    try {
-      // 2) Loading recipe
-      const payload = await ProductModel.all(this.model);
-
-      return payload
-
-    } catch (err) { 
-      // recipeView.renderError();
-      console.error(err);
-    }
-  };
+class UserController {
 
   /**
     * Store a newly created resource in storage.
@@ -24,7 +8,7 @@ class ProductController {
   store = async function (formData) {
     try {
       // 2) Loading recipe
-      const payload = await ProductModel.save(formData, this.model);
+      const payload = await UserModel.save(formData, this.model);
 
       return payload
 
@@ -41,7 +25,7 @@ class ProductController {
   show = async function (id) {
     try {
       // 2) Loading recipe
-      const payload = await ProductModel.find(id, this.model);
+      const payload = await UserModel.find(id, this.model);
 
       return payload
 
@@ -57,7 +41,7 @@ class ProductController {
   update = async function (formData, id) {
     try {
       // 2) Loading recipe
-      const payload = await ProductModel.save(formData, id, this.model);
+      const payload = await UserModel.save(formData, id, this.model);
 
       return payload
 
@@ -73,7 +57,7 @@ class ProductController {
   destroy = async function (id) {
     try {
       // 2) Loading recipe
-      const payload = await ProductModel.delete(id, this.model);
+      const payload = await UserModel.delete(id, this.model);
 
       return payload
 
@@ -84,4 +68,4 @@ class ProductController {
   }
 }
 
-export default new ProductController();
+export default new UserController();

@@ -9,7 +9,7 @@ use App\Exception\NotFoundException;
 use PDO;
 use Throwable;
 
-class UserModel extends AbstractModel implements UserInterface
+class UserModel extends AbstractModel
 {
   public function all(): array {
     try {
@@ -57,12 +57,12 @@ class UserModel extends AbstractModel implements UserInterface
   {
     try {
       $name = $this->conn->quote($data['name']);
-      $phone = $this->conn->quote($data['phone']);
-      $email = $this->conn->quote($data['email']);
-      $password = $this->conn->quote($data['password']);
-      $created = $this->conn->quote(date('Y-m-d H:i:s'));
+      // $phone = $this->conn->quote($data['phone']);
+      // $email = $this->conn->quote($data['email']);
+      // $password = $this->conn->quote($data['password']);
+      // $created = $this->conn->quote(date('Y-m-d H:i:s'));
 
-      $query = "INSERT INTO users(name, phone, email, password, created) VALUES($name, $phone, $email, $password, $created)";
+      $query = "INSERT INTO users(name) VALUES($name)";
 
       $this->conn->exec($query);
 
@@ -81,11 +81,8 @@ class UserModel extends AbstractModel implements UserInterface
   {
     try {
       $name = $this->conn->quote($data['name']);
-      $phone = $this->conn->quote($data['phone']);
-      $email = $this->conn->quote($data['email']);
-      $password = $this->conn->quote($data['password']);
 
-      $query = "UPDATE users SET name = $name, phone = $phone, email = $email, password = $password WHERE id = $id";
+      $query = "UPDATE users SET name = $name WHERE id = $id";
 
       $this->conn->exec($query);
 

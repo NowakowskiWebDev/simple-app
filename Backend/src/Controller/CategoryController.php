@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-class ProductController extends AbstractController
+class CategoryController extends AbstractController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $response = $this->productModel->all();
+        $response = $this->categoryModel->all();
 
         return $response;   
     }
@@ -28,7 +28,7 @@ class ProductController extends AbstractController
             ];
         }
 
-        $productData = [
+        $categoryData = [
             'name' => $this->request->postParam('name'),
             // 'type' => $this->request->postParam('type'),
             // 'img' => $this->request->postParam('img'),
@@ -36,7 +36,7 @@ class ProductController extends AbstractController
             // 'city' => $this->request->postParam('city')
           ];
 
-        $response = $this->productModel->create($productData);
+        $response = $this->categoryModel->create($categoryData);
         
         return $response;
     }
@@ -55,7 +55,7 @@ class ProductController extends AbstractController
             ];
         }
 
-        $response = $this->productModel->get($id);
+        $response = $this->categoryModel->get($id);
 
         return $response;
     }
@@ -82,7 +82,7 @@ class ProductController extends AbstractController
             // 'city' => $this->request->postParam('city')
           ];
 
-        $response = $this->productModel->edit($id, $productData);
+        $response = $this->categoryModel->edit($id, $productData);
 
         return $response;
     }
@@ -101,7 +101,7 @@ class ProductController extends AbstractController
             ];
         }
 
-        $response = $this->productModel->delete($id);
+        $response = $this->categoryModel->delete($id);
 
         return $response;
     }
