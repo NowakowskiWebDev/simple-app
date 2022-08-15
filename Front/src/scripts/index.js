@@ -400,23 +400,60 @@ const timeout = function (s) {
 
 const getJSON = async function (url) {
     try {
-      const fetchPro = fetch(url, {
+        const fetchPro = fetch(url, {
         method: "GET",
-      });
-      console.log(fetchPro)
-      const res = await Promise.race([fetchPro, timeout(10)]);
-      console.log(res.ok)
-      const data = await res.json();
-      console.log(data)
-  
-      if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-      return data;
-    } catch (err) {
-      throw err;
-    }
-  };
+        });
+        console.log(fetchPro)
+        const res = await Promise.race([fetchPro, timeout(10)]);
+        console.log(res.ok)
+        const data = await res.json();
+        console.log(data)
 
-getJSON('http://localhost:8888/')
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
+
+const postJSON = async function (url, uploadData = {}) {
+    try {
+        const fetchPro = fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(uploadData),
+        contentType: "application/json",
+        });
+
+        const res = await Promise.race([fetchPro, timeout(10)]);
+        const data = await res.json();
+        console.log(data, 'data')
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
+
+const testujeForm = document.querySelector('form');
+const input = document.querySelector('form input');
+
+function test(e) {
+    e.preventDefault()
+    const result = postJSON('http://localhost:8888', { 
+        name: input.value,
+        id: 12, 
+    })
+    console.log(result)
+}
+
+testujeForm.addEventListener('submit', (e) => test(e))
+  
+
+
+//   getJSON('http://localhost:8888/produkt/1ho')
 // console.log('test');
 // resultsView.render(sampleData.recipes);
 // paginationView.render(model.state.search);

@@ -22,21 +22,23 @@ use App\Request;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
 use App\Controller\CategoryController;
+use App\Controller\UserController;
 
 $request = new Request($_GET, $_POST, $_SERVER);
 
 try {
   AbstractController::initConfiguration($configuration);
-  
-  $data = (new CategoryController($request))->run();
+
+  echo json_encode($_POST);
+  // $data = (new CategoryController($request))->run();
+  $data = (new UserController($request))->run();
   // return json_decode($data);
-  // echo json_encode($data);
-  $test = json_encode($data);
-  echo $test;
+  // $test = json_encode($data);
+  // echo $test;
   // $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   // $url = explode( '/', $url );
 exit();
-  AbstractController($url, $request)->run();
+  // AbstractController($url, $request)->run();
 } catch (ConfigurationException $e) {
   //mail('xxx@xxx.com', 'Errro', $e->getMessage());
   echo '<h1>Wystąpił błąd w aplikacji</h1>';

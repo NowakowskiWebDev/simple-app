@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html lang="pl">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do App</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header class="header">
-        <nav>
-            <a href="/" data-link>Logo</a>
-            <a href="/kategorie" data-link>Kategorie</a>
-            <a href="/konto" data-link>Moje konto</a>
-        </nav>
+      <nav>
+        <a href="/" data-link>Logo</a>
+        <a href="/kategorie" data-link>Kategorie</a>
+        <a href="/konto" data-link>Moje konto</a>
+      </nav>
     </header>
 
     <main id="app">
+      <span id="message_box"></span>
 
-        <ul class="results">
-          </ul>
+      <form method="post" id="registration_form" class="form-horizontal" enctype=”multipart/form-data”>
+        <div class="form-group">
+          <label for="name" class="col-sm-3 control-label">Userame</label>
+          <div class="col-sm-6">n
+            <input
+              type="text"
+              class="form-control form_data"
+              name="name"
+              id="name"
+              placeholder="enter username"
+            />
+            <input type="submit">
+            <span id="username_error" class="text-danger"></span>
+          </div>
+        </div>
 
-        <div class="pagination"></div>
+
+      </form>
+      <ul class="results"></ul>
+
+      <div class="pagination"></div>
     </main>
-    
-    <footer class="footer">
-        <p>&copy; Łukasz Nowakowski </p>
-    </footer>
-</body>
 
+    <footer class="footer">
+      <p>&copy; Łukasz Nowakowski</p>
+    </footer>
+  </body>
 </html>

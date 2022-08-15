@@ -1,4 +1,4 @@
-class NotFounView {
+class NotFoundView {
   // getQuery() {
   //   const query = this._parentEl.querySelector('.search__field').value;
   //   this._clearInput();
@@ -10,4 +10,4 @@ class NotFounView {
   // }
 }
 
-export default new NotFounView();
+export default new NotFoundView();

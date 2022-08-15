@@ -48,7 +48,7 @@ abstract class AbstractController
   {
     try {
 
-      $test = $this->index();
+      $test = $this->store();
 
       return $test;
     } catch (StorageException $e) {

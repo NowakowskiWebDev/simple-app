@@ -46,11 +46,11 @@ class UserModel extends AbstractModel
       throw new StorageException('Nie udało się pobrać notatki', 400, $e);
     }
 
-    if (!$note) {
+    if (!$user) {
       throw new NotFoundException("Notatka o id: $id nie istnieje");
     }
 
-    return $note;
+    return $user;
   }
 
   public function create(array $data): array
