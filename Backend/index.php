@@ -8,12 +8,12 @@ spl_autoload_register(function (string $classNamespace) {
   require_once($path);
 });
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
-header("Access-Control-Max-Age: 3600");
-header( 'Access-Control-Allow-Credentials: true' );
-header( 'Access-Control-Allow-Headers: *' );
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json; charset=UTF-8');
+header('Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE');
+header('Access-Control-Max-Age: 3600');
+header('Access-Control-Allow-Credentials: true');
+header( 'Access-Control-Allow-Headers: *');
 
 $configuration = require_once("config/config.php");
 
@@ -21,32 +21,60 @@ use App\Controller\AbstractController;
 use App\Request;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
-use App\Controller\CategoryController;
+
 use App\Controller\UserController;
+use App\Controller\ProductController;
+use App\Controller\CategoryController;
+use App\Controller\OfferController;
+
+$_POST = json_decode(file_get_contents('php://input'), true) ?? [];
 
 $request = new Request($_GET, $_POST, $_SERVER);
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 try {
   AbstractController::initConfiguration($configuration);
 
-  echo json_encode($_POST);
-  // $data = (new CategoryController($request))->run();
-  $data = (new UserController($request))->run();
-  // return json_decode($data);
-  // $test = json_encode($data);
-  // echo $test;
-  // $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-  // $url = explode( '/', $url );
-exit();
-  // AbstractController($url, $request)->run();
+  $controller = AbstractController::getControllerType($url);
+  echo json_encode($_SERVER['REQUEST_METHOD']);
+
+  switch ($controller) {
+    case 'product':
+      (new ProductController($request))->run();
+      break;
+    case 'user':
+      (new UserController($request))->run();
+      break;
+    case 'offer':
+      (new OfferController($request))->run();
+      break;
+    case 'category':
+      (new CategoryController($request))->run();
+      break;
+    default:
+      echo json_encode([
+        "success" => false,
+        "message" => 'Model not found',
+      ]);
+  }
+  
 } catch (ConfigurationException $e) {
   //mail('xxx@xxx.com', 'Errro', $e->getMessage());
-  echo '<h1>Wystąpił błąd w aplikacji</h1>';
-  echo '<h3>' . $e->getMessage() . '</h3>';
+  echo json_encode([
+      "success" => false,
+      "message" => $e->getMessage(),
+      "error" => 'ConfigurationException'
+    ]);
 } catch (AppException $e) {
-  echo '<h1>Wystąpił błąd w aplikacji</h1>';
-  echo '<h3>' . $e->getMessage() . '</h3>';
+  echo json_encode([
+    "success" => false,
+    "message" => $e->getMessage(),
+    "error" => 'AppException'
+  ]);
 } catch (\Throwable $e) {
-  echo '<h1>Wystąpił błąd w aplikacji</h1>';
-  echo '<h3>' . $e->getMessage() . '</h3>';
+  echo json_encode([
+    "success" => false,
+    "message" => $e->getMessage(),
+    "error" => 'Throwable'
+  ]);
 }

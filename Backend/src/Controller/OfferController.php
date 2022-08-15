@@ -45,18 +45,18 @@ class OfferController extends AbstractController
      */
     public function show()
     {
-        $id = $this->getId();
+        // $id = $this->getId();
 
-        if (!$id) {
-            return [
-                "success" => false,
-                "message" => "Wystąpił błąd",
-            ];
-        }
+        // if (!$id) {
+        //     return [
+        //         "success" => false,
+        //         "message" => "Wystąpił błąd",
+        //     ];
+        // }
 
-        $response = $this->userModel->get($id);
+        // $response = $this->userModel->get($id);
 
-        return $response;
+        // return $response;
     }
 
     /**
@@ -64,25 +64,25 @@ class OfferController extends AbstractController
      */
     public function update()
     {
-        $id = $this->getId();
+        // $id = $this->getId();
 
-        if (!$this->request->isPost() && !$id) {
-            return [
-                "success" => false,
-                "message" => "Wystąpił błąd",
-            ];
-        }
+        // if (!$this->request->isPost() && !$id) {
+        //     return [
+        //         "success" => false,
+        //         "message" => "Wystąpił błąd",
+        //     ];
+        // }
 
-        $userData = [
-            'name' => $this->request->postParam('name'),
-            // 'phone' => $this->request->postParam('phone'),
-            // 'email' => $this->request->postParam('email'),
-            // 'password' => $this->request->postParam('password')
-        ];
+        // $userData = [
+        //     'name' => $this->request->postParam('name'),
+        //     // 'phone' => $this->request->postParam('phone'),
+        //     // 'email' => $this->request->postParam('email'),
+        //     // 'password' => $this->request->postParam('password')
+        // ];
 
-        $response = $this->userModel->edit($id, $userData);
+        // $response = $this->userModel->edit($id, $userData);
 
-        return $response;
+        // return $response;
     }
 
     /**

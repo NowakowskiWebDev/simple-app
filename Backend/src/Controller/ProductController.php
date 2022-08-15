@@ -65,26 +65,26 @@ class ProductController extends AbstractController
      */
     public function update()
     {
-        $id = $this->getId();
+        // $id = $this->getId();
 
-        if (!$this->request->isPost() && !$id) {
-            return [
-                "success" => false,
-                "message" => "Wystąpił błąd",
-            ];
-        }
+        // if (!$this->request->isPost() && !$id) {
+        //     return [
+        //         "success" => false,
+        //         "message" => "Wystąpił błąd",
+        //     ];
+        // }
 
-        $productData = [
-            'name' => $this->request->postParam('name'),
-            // 'type' => $this->request->postParam('type'),
-            // 'img' => $this->request->postParam('img'),
-            // 'price' => $this->request->postParam('price'),
-            // 'city' => $this->request->postParam('city')
-          ];
+        // $productData = [
+        //     'name' => $this->request->postParam('name'),
+        //     // 'type' => $this->request->postParam('type'),
+        //     // 'img' => $this->request->postParam('img'),
+        //     // 'price' => $this->request->postParam('price'),
+        //     // 'city' => $this->request->postParam('city')
+        //   ];
 
-        $response = $this->productModel->edit($id, $productData);
+        // $response = $this->productModel->edit($id, $productData);
 
-        return $response;
+        // return $response;
     }
 
     /**

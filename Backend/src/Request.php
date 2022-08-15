@@ -17,19 +17,44 @@ class Request
     $this->server = $server;
   }
 
-  public function isPost(): bool
+  private function isPost(): bool
   {
     return $this->server['REQUEST_METHOD'] === 'POST';
   }
 
-  public function isGet(): bool
+  private function isGet(): bool
   {
     return $this->server['REQUEST_METHOD'] === 'GET';
+  }
+
+  private function isPut(): bool
+  {
+    return $this->server['REQUEST_METHOD'] === 'PUT';
+  }
+
+  private function isDelete(): bool
+  {
+    return $this->server['REQUEST_METHOD'] === 'DELETE';
+  }
+
+  public function getAction(): string
+  {
+    if ($this->isPost()) return 'store';
+    if ($this->isGet() && !$this->hasGet()) return  'index';
+    if ($this->isGet() && $this->hasGet()) return  'show';
+    if ($this->isPut()) return  'update';
+    if ($this->isDelete()) return 'destroy';
+    return 'index';
   }
 
   public function hasPost(): bool
   {
     return !empty($this->post);
+  }
+
+  public function hasGet(): bool
+  {
+    return !empty($this->get);
   }
 
   public function getParam(string $name, $default = null)

@@ -419,12 +419,11 @@ const getJSON = async function (url) {
 const postJSON = async function (url, uploadData = {}) {
     try {
         const fetchPro = fetch(url, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
-        },
+            'Content-Type': 'application/json; charset=UTF-8'
+          },
         body: JSON.stringify(uploadData),
-        contentType: "application/json",
         });
 
         const res = await Promise.race([fetchPro, timeout(10)]);
@@ -442,18 +441,18 @@ const input = document.querySelector('form input');
 
 function test(e) {
     e.preventDefault()
-    const result = postJSON('http://localhost:8888', { 
+    const resultPost = postJSON('http://localhost:8888/offer/1', { 
         name: input.value,
-        id: 12, 
+        id: "12", 
     })
-    console.log(result)
+    // const resultGet = getJSON('http://localhost:8888/kategoria')
 }
 
 testujeForm.addEventListener('submit', (e) => test(e))
   
 
 
-//   getJSON('http://localhost:8888/produkt/1ho')
+//   getJSON('http://localhost:8888/product/1ho')
 // console.log('test');
 // resultsView.render(sampleData.recipes);
 // paginationView.render(model.state.search);
