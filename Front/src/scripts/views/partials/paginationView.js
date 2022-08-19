@@ -1,9 +1,7 @@
-import View from './View.js';
-
-class PaginationView extends View {
+class PaginationView {
   _parentElement = document.querySelector('.pagination');
 
-  addHandlerClick(handler) {
+  addHandlerClick(handler) {z
     console.log(handler)
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--inline');
