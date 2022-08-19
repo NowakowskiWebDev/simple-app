@@ -3,46 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To Do App</title>
+    <title>XLO</title>
   </head>
 
   <body>
     <header class="header">
-      <nav>
-        <a href="/" data-link>Logo</a>
-        <a href="/kategorie" data-link>Kategorie</a>
-        <a href="/konto" data-link>Moje konto</a>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="navbar-brand d-flex justify-content-center aling-items-center" href="/homepage" data-link>XLO</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/category" data-link>Categories</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/product" data-link>Add Product</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/account" data-link>Account</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </nav>
     </header>
 
-    <main id="app">
-      <span id="message_box"></span>
-
-      <form id="registration_form" class="form-horizontal">
-        <div class="form-group">
-          <label for="name" class="col-sm-3 control-label">Userame</label>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              class="form-control form_data"
-              name="name"
-              id="name"
-              placeholder="enter username"
-            />
-            <input type="submit" value="Add">
-            <span id="username_error" class="text-danger"></span>
+    <main class="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-6 my-5 mx-auto">
+            <div class="input-group">
+              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+              <button type="button" class="btn btn-outline-primary">search</button>
+            </div>
           </div>
         </div>
+      </div>
 
-
-      </form>
-      <ul class="results"></ul>
-
-      <div class="pagination"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div id="app"></div>
+          </div>
+        </div>
+      </div>
     </main>
 
-    <footer class="footer">
-      <p>&copy; Łukasz Nowakowski</p>
-    </footer>
+      <footer class="footer container my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="/homepage" class="nav-link px-2 text-muted" data-link>Home</a></li>
+          <li class="nav-item"><a href="/category" class="nav-link px-2 text-muted" data-link>Categories</a></li>
+          <li class="nav-item"><a href="/product" class="nav-link px-2 text-muted" data-link>Add Product</a></li>
+          <li class="nav-item"><a href="/account" class="nav-link px-2 text-muted" data-link>Account</a></li>
+        </ul>
+
+        <p class="text-center text-muted">© Łukasz Nowakowski</p>
+      </footer>
   </body>
 </html>

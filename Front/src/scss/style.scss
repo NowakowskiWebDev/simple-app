@@ -1,51 +1,9 @@
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
-
+@import './../../node_modules/bootstrap/scss/bootstrap.scss';
 @import 'abstracts/fonts';
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
 
 @import 'base/base';
-@import 'base/body';
 
-@import 'components/button';
-@import 'components/label';
-@import 'components/input';
 
-@import 'layout/header';
-@import 'layout/main';
-@import 'layout/creation-section';
-@import 'layout/tasks-section';
-@import 'layout/sort-section';
-@import 'layout/footer';
 
-.search-results {
-    padding: 3rem 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .results {
-    list-style: none;
-    margin-bottom: 2rem;
-  }
-  
-  .pagination {
-    margin-top: auto;
-    padding: 0 3.5rem;
-  
-    &::after {
-      content: '';
-      display: table;
-      clear: both;
-    }
-  
-    &__btn {
-      &--prev {
-        float: left;
-      }
-      &--next {
-        float: right;
-      }
-    }
-  }
-  

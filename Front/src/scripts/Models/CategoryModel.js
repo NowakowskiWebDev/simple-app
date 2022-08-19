@@ -1,36 +1,20 @@
-import { API_URL } from '../config.js';
+import { API_URL } from '../config.js'
+import AbstractModel from './AbstractModel.js'
 // import { getJSON, sendJSON } from './helpers.js';
 import * as json from '../helpers/json.js';
 
-const urlModel = 'product';
-
-class CategoryModel {
-
-  all = async function (model) {
-    try {
-      console.log(API_URL)
-      const response = await json.getJSON(`${API_URL}/${model}`);
-
-      return response;
-    } catch (err) {
-      // Temp error handling
-      console.error(`${err} 💥💥💥💥`);
-      throw err;
-    }
+export default class CategoryModel extends AbstractModel {
+  constructor(id, model='category') {
+    this.id = id;
+    this.model = model;
+    
+    super(this.getUrl());
   }
 
-  get = async function (model, id) {
-    try {
-      console.log(API_URL)
-      const response = await json.getJSON(`${API_URL}/${model}/${id}`);
-
-      return response;
-    } catch (err) {
-      // Temp error handling
-      console.error(`${err} 💥💥💥💥`);
-      throw err;
+  getUrl() {
+    if (!this.id) {
+      return `${API_URL/this.model}` 
     }
+    return `${API_URL/this.model/this.id}` 
   }
 }
-
-export default new CategoryModel();

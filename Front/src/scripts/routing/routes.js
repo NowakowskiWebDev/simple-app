@@ -1,29 +1,35 @@
-import ProductController from "../controllers/ProductController.js";
-import UserController from "../controllers/UserController.js";
-import CategoryController from "../controllers/CategoryController.js";
+// import ProductController from "../controllers/ProductController.js";
+// import UserController from "../controllers/UserController.js";
+import CategoryView from "../views/category/CategoryView.js";
+import ProductView from "../views/product/ProductView.js";
+import AccountView from "../views/account/AccountView.js";
+import LoginView from "../views/login/LoginView.js";
+import NotFoundView from "../views/404/NotFoundView.js";
 
-const models = {
-  'category': CategoryController,
-  'product': ProductController,
-  'products': ProductController,
-  'user': UserController,
-  '404': '404.html'
+const views = {
+  'categories': CategoryView,
+  'category': CategoryView,
+  'products': ProductView,
+  'product': ProductView,
+  'account': AccountView,
+  'login': LoginView,
+  '404': NotFoundView,
 }
 
-export const routes = (model, id = null) => {
+export const routes = (viewParam, id = null) => {
 
-  if (!(model in models)) {
-    console.log('test')
-    return models['404']
+  console.log('test')
+  if (!(viewParam in views)) {
+    return
   }
 
-  const modelController = models[model]
+  const view = views[viewParam]
 
-  modelController.model = model;
-
+  // modelController.model = model;
+  console.log(view)
   if (id === null) {
-    return modelController.index()
+    return view.index()
   }
 
-  return modelController.get
+  // return view.get()
 };

@@ -27,8 +27,8 @@ use App\Controller\ProductController;
 use App\Controller\CategoryController;
 use App\Controller\OfferController;
 
-$_POST = json_decode(file_get_contents('php://input'), true) ?? [];
-
+// $_POST = json_decode(file_get_contents('php://input'), true);
+json_decode(file_get_contents('php://input'), true);
 $request = new Request($_GET, $_POST, $_SERVER);
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

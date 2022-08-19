@@ -1,20 +1,13 @@
 class ProductView {
-  // getQuery() {
-  //   const query = this._parentEl.querySelector('.search__field').value;
-  //   this._clearInput();
-  //   return query;
-  // }
+  constructor() {
+    this.app_div = document.querySelector('#app');
+  }
 
-  // _clearInput() {
-  //   this._parentEl.querySelector('.search__field').value = '';
-  // }
-
-  addHandlerSearch(handler, selector) {
-    const _parentEl = document.querySelector(selector);
-      _parentEl.addEventListener('submit', function (event) {
-        event.preventDefault();
-        handler();
-      });
+  index() {
+    let div = document.createElement('div');
+    div.innerHTML = '<h1>ProductView</h1>';
+    this.app_div.innerHTML = '';
+    this.app_div.appendChild(div);
   }
 }
 
