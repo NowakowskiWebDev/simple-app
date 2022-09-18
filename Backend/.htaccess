@@ -1,8 +1,8 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([a-zA-Z-_0-9]+)/([a-zA-Z-_0-9]+)/?$ index.php?page=$1&id=$2 [L]
-RewriteRule ^([a-zA-Z-_0-9]+)/?$ index.php?page=$1 [L]
+RewriteRule ^([a-zA-Z-_0-9]+)/([a-zA-Z-_0-9]+)/?$ index.php?model=$1&id=$2 [L]
+RewriteRule ^([a-zA-Z-_0-9]+)/?$ index.php?model=$1 [L]
 RewriteEngine On
 ErrorDocument 404 /404.php
 

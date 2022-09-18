@@ -39,22 +39,23 @@ class Request
 
   public function getAction(): string
   {
+    
     if ($this->isPost()) return 'store';
-    if ($this->isGet() && !$this->hasGet()) return  'index';
-    if ($this->isGet() && $this->hasGet()) return  'show';
+    if ($this->isGet() && $this->hasId()) return  'show';
+    if ($this->isGet() && !$this->hasId()) return  'index';
     if ($this->isPut()) return  'update';
     if ($this->isDelete()) return 'destroy';
-    return 'index';
+    return 'error';
   }
 
   public function hasPost(): bool
-  {
+  {    
     return !empty($this->post);
   }
-
-  public function hasGet(): bool
+  
+  public function hasId(): bool
   {
-    return !empty($this->get);
+    return isset($this->get['id']) && !empty($this->get['id']);
   }
 
   public function getParam(string $name, $default = null)

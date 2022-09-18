@@ -49,17 +49,23 @@ abstract class AbstractController
   {
     $url = explode( '/', $url );
     $fillterUrl = array_filter($url);
-
+  
     return $fillterUrl[1] ?? '';
+  }
+
+  final public function error(): void {
+    echo json_encode([
+      "success" => false,
+      "message" =>  'Action not found',
+      "error" => "404"
+    ]);
   }
 
   final public function run(): void
   {
     try {
       $action = $this->action();
-      var_dump($action);
-      var_dump($_POST['name']);
-      // $this->$action();
+      $this->$action();
 
     } catch (StorageException $e) {
       echo json_encode([

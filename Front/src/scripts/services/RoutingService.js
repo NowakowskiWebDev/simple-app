@@ -1,18 +1,15 @@
-import { routes } from "../helpers/routes.js";
-import { parseRequestUrl } from "../helpers/parseUrl.js";
+import ViewService from "./ViewService.js";
 
 export default class RoutingService {
   constructor() {
     this.links = document.querySelectorAll("[data-link]");
-
+this
     this.loadPage();
     this.registerClickHandler();
   }
 
   loadPage() {
-    const requestUrl = parseRequestUrl();
     history.pushState("", "", window.location.href);
-    routes(requestUrl);
   }
 
   registerClickHandler() {
@@ -22,7 +19,6 @@ export default class RoutingService {
   changeSubPage(event) {
     event.preventDefault()
     history.pushState("", "", event.target.href);
-    const requestUrl = parseRequestUrl();
-    routes(requestUrl);
+    ViewService.changeView()
   }
 }

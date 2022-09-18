@@ -8,7 +8,7 @@
     const params = path.split('/');
   
     const request = {
-      resource: params[0] || null,
+      view: params[0] || null,
       id: params[1] || null,
     };
   

@@ -27,8 +27,7 @@ use App\Controller\ProductController;
 use App\Controller\CategoryController;
 use App\Controller\OfferController;
 
-// $_POST = json_decode(file_get_contents('php://input'), true);
-json_decode(file_get_contents('php://input'), true);
+file_get_contents('php://input');
 $request = new Request($_GET, $_POST, $_SERVER);
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -36,9 +35,7 @@ try {
   AbstractController::initConfiguration($configuration);
 
   $controller = AbstractController::getControllerType($url);
-  echo json_encode($_SERVER['REQUEST_METHOD']);
-
-  switch ($controller) {
+  switch ($controller) { 
     case 'product':
       (new ProductController($request))->run();
       break;

@@ -12,12 +12,12 @@ export const getJSON = async function (url) {
   try {
     const fetchPro = fetch(url, {
       method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-    console.log(fetchPro)
     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
-    console.log(res.ok)
     const data = await res.json();
-    console.log(data)
 
     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
     return data;

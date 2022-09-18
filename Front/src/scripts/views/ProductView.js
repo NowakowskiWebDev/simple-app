@@ -1,11 +1,11 @@
 import AbstractView from "./AbstractView";
 
 class ProductView extends AbstractView {
-  index() {
+  render() {
     let div = document.createElement('div');
     div.innerHTML = '<h1>ProductView</h1>';
-    this.appSelector.innerHTML = '';
-    this.appSelector.appendChild(div);
+    this.viewSelector.innerHTML = '';
+    this.viewSelector.appendChild(div);
   }
 }
 
