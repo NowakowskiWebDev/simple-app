@@ -1,11 +1,14 @@
-import AbstractView from "./AbstractView";
+import CardsCategoryView from './homepage/cardsCategoryView.js';
+import { htmlParent } from "../helpers/parentElements";
 
-class CategoryView extends AbstractView {
-  render() {
-    let div = document.createElement('div');
-    div.innerHTML = '<h1>CategoryView</h1>';
-    this.viewSelector.innerHTML = '';
-    this.viewSelector.appendChild(div);
+class CategoryView {
+  async render() {
+    this.clearView()
+    await CardsCategoryView.init(htmlParent.categoriesList, 'list');
+  }
+  
+  clearView() {
+    htmlParent.offersList.innerHTML = ''
   }
 }
 

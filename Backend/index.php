@@ -29,6 +29,9 @@ use App\Controller\OfferController;
 
 file_get_contents('php://input');
 $request = new Request($_GET, $_POST, $_SERVER);
+// echo json_encode(['$_GET', $request]);
+// die();
+
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 try {

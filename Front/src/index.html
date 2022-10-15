@@ -13,18 +13,24 @@
           <div class="row">
             <div class="col">
               <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" data-link-permanent>
                   <li class="nav-item">
-                    <a class="navbar-brand d-flex justify-content-center aling-items-center" href="/" data-link>XLO</a>
+                    <a
+                      class="navbar-brand d-flex justify-content-center aling-items-center"
+                      href="/"
+                      >XLO</a
+                    >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/category/2" data-link>Categories</a>
+                    <a class="nav-link" href="/category/2"
+                      >Wiadomości</a
+                    >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/product" data-link>Add Product</a>
+                    <a class="nav-link" href="/product">Konto</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/account" data-link>Account</a>
+                    <a class="nav-link" href="/account">Ogłoszenia</a>
                   </li>
                 </ul>
               </div>
@@ -35,35 +41,117 @@
     </header>
 
     <main class="main">
-      <div class="container">
+      <section class="container">
         <div class="row">
-          <div class="col-6 my-5 mx-auto">
+          <div class="col-12">
+            <ul data-render-categories-list data-link-generic></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 mx-auto">
             <div class="input-group">
-              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-              <button type="button" class="btn btn-outline-primary">search</button>
+              <input
+                type="search"
+                class="form-control rounded"
+                placeholder="Wyszukaj swój produkt..."
+                aria-label="Search"
+                aria-describedby="search-addon"
+              />
+              <button type="button" class="btn btn-outline-primary">
+                Szukaj
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="container">
+      <section class="container">
         <div class="row">
-          <div class="col-12">
-            <div id="app"></div>
+          <div class="col-12 col-md-6 col-lg-4 col-xl-2">
+            <label class="form-label" for="pet-select">Kategorie</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Wszystkie</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4 col-xl-2">
+            <label class="form-label" for="pet-select">Sortuj</label>
+            <select class="form-select" aria-label="Default select example">
+              <option value="1">Najnowsze</option>
+              <option value="2">Najtańsze</option>
+              <option value="3">Najdroższe</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2">
+            <label for="exampleFormControlInput1" class="form-label"
+              >Kwota od</label
+            >
+            <div class="d-flex justify-content-center align-items-center">
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                id="exampleFormControlInput1"
+              />
+              <span class="ms-2">zł</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2">
+            <label for="exampleFormControlInput1" class="form-label"
+              >Kwota do</label
+            >
+            <div class="d-flex justify-content-center align-items-center">
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                id="exampleFormControlInput1"
+              />
+              <span class="ms-2">zł</span>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section class="container">
+        <div class="row">
+          <div class="col-12">
+            <ul data-render-offers-list data-link-generic></ul>
+          </div>
+        </div>
+      </section>
     </main>
 
-      <footer class="footer container my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="/homepage" class="nav-link px-2 text-muted" data-link>Home</a></li>
-          <li class="nav-item"><a href="/category" class="nav-link px-2 text-muted" data-link>Categories</a></li>
-          <li class="nav-item"><a href="/product" class="nav-link px-2 text-muted" data-link>Add Product</a></li>
-          <li class="nav-item"><a href="/account" class="nav-link px-2 text-muted" data-link>Account</a></li>
-        </ul>
+    <footer class="footer container my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3" data-link-permanent>
+        <li class="nav-item">
+          <a href="/homepage" class="nav-link px-2 text-muted"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="/category" class="nav-link px-2 text-muted"
+            >Categories</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="/product" class="nav-link px-2 text-muted"
+            >Add Product</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="/account" class="nav-link px-2 text-muted"
+            >Account</a
+          >
+        </li>
+      </ul>
 
-        <p class="text-center text-muted">© Łukasz Nowakowski</p>
-      </footer>
+      <p class="text-center text-muted">© Łukasz Nowakowski</p>
+    </footer>
   </body>
 </html>

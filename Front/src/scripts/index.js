@@ -1,18 +1,18 @@
 import 'bootstrap';
 import '../scss/style.scss';
 
-import RoutingService from "./services/RoutingService";
-import CategoryController from "./controllers/CategoryController";
 import ViewService from "./services/ViewService";
+import RoutingService from "./services/RoutingService";
 
 document.addEventListener("DOMContentLoaded", () => {
     try {
-        new RoutingService()
+        ViewService.run()
     } catch (error) {
         console.error(error);
     }  
     try {
-        ViewService.run()
+        RoutingService.init()
+        console.log('RoutingService')
     } catch (error) {
         console.error(error);
     }  

@@ -12,8 +12,7 @@ class ProductController extends AbstractController
     public function index()
     {
         $response = $this->productModel->all();
-
-        return $response;   
+        echo json_encode($response);
     }
 
     /**
@@ -37,8 +36,7 @@ class ProductController extends AbstractController
           ];
 
         $response = $this->productModel->create($productData);
-        
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -56,8 +54,7 @@ class ProductController extends AbstractController
         }
 
         $response = $this->productModel->get($id);
-
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -102,7 +99,6 @@ class ProductController extends AbstractController
         }
 
         $response = $this->productModel->delete($id);
-
-        return $response;
+        echo json_encode($response);
     }
 }

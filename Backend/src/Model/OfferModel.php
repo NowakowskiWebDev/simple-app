@@ -13,44 +13,38 @@ class OfferModel extends AbstractModel
 {
   public function all(): array {
     try {
-      $query = "SELECT * FROM products";
+      $query = "SELECT * FROM offers";
 
-      $products = $this->conn->query($query);   
+      $offers = $this->conn->query($query);   
       
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Products All",
-        "data" => $products->fetchAll(PDO::FETCH_ASSOC)
+        "message" => "Offers All",
+        "data" => $offers->fetchAll(PDO::FETCH_ASSOC)
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać produktów', 400, $e);
+      throw new StorageException('Nie udało się pobrać oferty', 400, $e);
     }
   }
 
   public function get(int $id): array
   {
     try {
-      $query = "SELECT * FROM products WHERE id = $id";
+      $query = "SELECT * FROM offers WHERE id = $id";
 
-      $product = $this->conn->query($query);
+      $offers = $this->conn->query($query);
       
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Get",
-        "data" => $product->fetch(PDO::FETCH_ASSOC)
+        "message" => "Offer Get",
+        "data" => $offers->fetch(PDO::FETCH_ASSOC)
       ];
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać produktu', 400, $e);
+      throw new StorageException('Nie udało się pobrać oferty', 400, $e);
     }
-
-    if (!$note) {
-      throw new NotFoundException("Produkt o id: $id nie istnieje");
-    }
-
-    return $note;
   }
 
   public function create(array $data): array
@@ -64,18 +58,18 @@ class OfferModel extends AbstractModel
       $created = $this->conn->quote(date('Y-m-d H:i:s'));
 
       // $query = "INSERT INTO products(name, type, img, price, city, created) VALUES($name, $type, $img, $price, $city, $created)";
-      $query = "INSERT INTO products(name) VALUES($name)";
+      $query = "INSERT INTO offers(name) VALUES($name)";
 
       $this->conn->exec($query);
 
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Create",
+        "message" => "Offer Create",
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się utworzyć nowej produktu', 400, $e);
+      throw new StorageException('Nie udało się utworzyć nowej oferty', 400, $e);
     }
   }
 
@@ -89,34 +83,34 @@ class OfferModel extends AbstractModel
       // $city = $this->conn->quote($data['city']);
 
       // $query = "UPDATE products SET name = $name, type = $type, img = $img, price = $price, city = $city WHERE id = $id";
-      $query = "UPDATE products SET name = $name WHERE id = $id";
+      $query = "UPDATE offers SET name = $name WHERE id = $id";
 
       $this->conn->exec($query);
 
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Edit",
+        "message" => "Offer Edit",
       ];
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się zaktualizować produktu', 400, $e);
+      throw new StorageException('Nie udało się zaktualizować oferty', 400, $e);
     }
   }
 
   public function delete(int $id): array
   {
     try {
-      $query = "DELETE FROM products WHERE id = $id LIMIT 1";
+      $query = "DELETE FROM offers WHERE id = $id LIMIT 1";
       $this->conn->exec($query);
 
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Delete",
+        "message" => "Offer Delete",
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się usunąć produktu', 400, $e);
+      throw new StorageException('Nie udało się usunąć oferty', 400, $e);
     }
   }
 }

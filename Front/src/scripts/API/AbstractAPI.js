@@ -12,7 +12,7 @@ export default class AbstractController {
   all = async function () {
     try {
       const response = await json.getJSON(`${this.url}`);
-
+      
       return response;
     } catch (err) {
       // Temp error handling
@@ -40,7 +40,6 @@ export default class AbstractController {
    */
   show = async function (id) {
     try {
-      console.log(`${this.url}/${id}`)
       const response = await json.getJSON(`${this.url}/${id}`);
 
       return response;
@@ -56,7 +55,6 @@ export default class AbstractController {
    */
   update = async function (id, payload) {
     try {
-      console.log(`${this.url}/${id}`)
       const response = await json.updateJSON(`${this.url}/${id}`, payload);
 
       return response;

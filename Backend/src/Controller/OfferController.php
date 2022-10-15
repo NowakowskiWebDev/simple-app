@@ -11,9 +11,8 @@ class OfferController extends AbstractController
      */
     public function index()
     {
-        $response = $this->userModel->all();
-
-        return $response;   
+        $response = $this->offerModel->all();
+        echo json_encode($response);
     }
 
     /**
@@ -36,8 +35,7 @@ class OfferController extends AbstractController
           ];
 
         $response = $this->userModel->create($userData);
-        
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -90,8 +88,6 @@ class OfferController extends AbstractController
      */
     public function destroy($id)
     {
-        $id = $this->getId();
-
         if (!$id) {
             return [
                 "success" => false,
@@ -100,7 +96,6 @@ class OfferController extends AbstractController
         }
 
         $response = $this->userModel->delete($id);
-
-        return $response;
+        echo json_encode($response);
     }
 }

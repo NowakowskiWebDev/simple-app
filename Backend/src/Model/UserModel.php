@@ -25,7 +25,7 @@ class UserModel extends AbstractModel
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać produktów', 400, $e);
+      throw new StorageException('Nie udało się pobrać usera', 400, $e);
     }
   }
 
@@ -43,14 +43,8 @@ class UserModel extends AbstractModel
         "data" => $user->fetch(PDO::FETCH_ASSOC)
       ];
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się pobrać notatki', 400, $e);
+      throw new StorageException('Nie udało się pobrać usera', 400, $e);
     }
-
-    if (!$user) {
-      throw new NotFoundException("Notatka o id: $id nie istnieje");
-    }
-
-    return $user;
   }
 
   public function create(array $data): array
@@ -73,7 +67,7 @@ class UserModel extends AbstractModel
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się utworzyć nowej notatki', 400, $e);
+      throw new StorageException('Nie udało się utworzyć nowego usera', 400, $e);
     }
   }
 
@@ -92,7 +86,7 @@ class UserModel extends AbstractModel
         "message" => "User Edit",
       ];
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się zaktualizować notetki', 400, $e);
+      throw new StorageException('Nie udało się zaktualizować usera', 400, $e);
     }
   }
 
@@ -105,11 +99,11 @@ class UserModel extends AbstractModel
       return [
         "code" => 200,
         "success" => true,
-        "message" => "Product Delete",
+        "message" => "User Delete",
       ];
 
     } catch (Throwable $e) {
-      throw new StorageException('Nie udało się usunąć notatki', 400, $e);
+      throw new StorageException('Nie udało się usunąć usera', 400, $e);
     }
   }
 }

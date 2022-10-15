@@ -1,16 +1,18 @@
 import { views } from '../helpers/views.js';
-import { parseRequestUrl } from "../helpers/parseUrl.js";
+import { parseUrl } from "../helpers/parseUrl.js";
 
-import HomepageView from "../views/HomepageView.js";
-import AccountView from "../views/AccountView.js";
-import CategoryView from "../views/CategoryView.js";
-import LoginView from "../views/LoginView.js";
+import RoutingService from "./RoutingService";
+
+// import HomepageView from "../views/HomepageView.js";
+// import AccountView from "../views/AccountView.js";
+// import CategoryView from "../views/CategoryView.js";
+// import LoginView from "../views/LoginView.js";
 import NotFoundView from "../views/NotFoundView.js";
-import ProductView from "../views/ProductView.js";
+// import ProductView from "../views/ProductView.js";
 
 class ViewService {
   constructor() {
-    this.requestUrl = parseRequestUrl();
+    this.requestUrl = parseUrl();
     this.view = this.getViewComponent();
   }
 
@@ -22,14 +24,15 @@ class ViewService {
   }
   
   changeView() {
-    this.requestUrl = parseRequestUrl();
+    this.requestUrl = parseUrl();
     this.view = this.getViewComponent()
     this.run()
   }
 
-  run() {
-    this.view.setViewSelector('#app')
-    this.view.render(this.requestUrl.id)
+  async run() {
+    this.view.id = this.requestUrl.id 
+    await this.view.render()
+    RoutingService.registerGenericLinksHandler()
   }
 }
 

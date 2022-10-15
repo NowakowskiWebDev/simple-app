@@ -12,8 +12,7 @@ class CategoryController extends AbstractController
     public function index()
     {
         $response = $this->categoryModel->all();
-
-        return $response;   
+        echo json_encode($response);
     }
 
     /**
@@ -37,8 +36,7 @@ class CategoryController extends AbstractController
           ];
 
         $response = $this->categoryModel->create($categoryData);
-        
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -56,8 +54,7 @@ class CategoryController extends AbstractController
         }
 
         $response = $this->categoryModel->get($id);
-
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -83,8 +80,7 @@ class CategoryController extends AbstractController
           ];
 
         $response = $this->categoryModel->edit($id, $productData);
-
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -92,8 +88,6 @@ class CategoryController extends AbstractController
      */
     public function destroy($id)
     {
-        $id = $this->getId();
-
         if (!$id) {
             return [
                 "success" => false,
@@ -102,7 +96,6 @@ class CategoryController extends AbstractController
         }
 
         $response = $this->categoryModel->delete($id);
-
-        return $response;
+        echo json_encode($response);
     }
 }

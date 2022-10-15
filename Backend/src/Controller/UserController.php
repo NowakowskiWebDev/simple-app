@@ -12,8 +12,7 @@ class UserController extends AbstractController
     public function index()
     {
         $response = $this->userModel->all();
-
-        return $response;   
+        echo json_encode($response);
     }
 
     /**
@@ -36,8 +35,7 @@ class UserController extends AbstractController
           ];
 
         $response = $this->userModel->create($userData);
-        
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -55,8 +53,7 @@ class UserController extends AbstractController
         }
 
         $response = $this->userModel->get($id);
-
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -81,8 +78,7 @@ class UserController extends AbstractController
         ];
 
         $response = $this->userModel->edit($id, $userData);
-
-        return $response;
+        echo json_encode($response);
     }
 
     /**
@@ -100,7 +96,6 @@ class UserController extends AbstractController
         }
 
         $response = $this->userModel->delete($id);
-
-        return $response;
+        echo json_encode($response);
     }
 }

@@ -6,5 +6,5 @@ export const routes = (view, id = null) => {
     NotFoundView.render()
   }
 
-    return views[view]
+  return views[view]
 };

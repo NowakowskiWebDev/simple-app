@@ -3,11 +3,15 @@ import CardsOfferView from './homepage/cardsOfferView.js';
 
 import { htmlParent } from "../helpers/parentElements";
 
-class HomepageView {
+class OfferView {
   async render() {
     await CardsCategoryView.init(htmlParent.categoriesList, 'list');
     await CardsOfferView.init(htmlParent.offersList, 'list');
   }
+  
+  clearView() {
+    htmlParent.offersList.innerHTML = ''
+  }
 }
 
-export default new HomepageView();
+export default new OfferView();
